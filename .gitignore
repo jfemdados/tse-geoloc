@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# macos things
+.DS_Store
+*/.DS_Store
+
+data-raw/*
