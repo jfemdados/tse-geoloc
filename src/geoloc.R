@@ -16,7 +16,7 @@ library(purrr)
 
 # download ------------------------------------------------------------------------------------
 
-anos <- c(2022, 2024)
+anos <- c(2020, 2022, 2024)
 
 url_tse <- anos %>% 
   map(
@@ -32,8 +32,6 @@ anos %>%
 
 list.files("data-raw", pattern = "db_eleitorado", full.names = T) %>% 
   map(archive::archive_extract, dir = "data-raw")
-
-archive::archive_extract("data-raw/db_eleitorado_2022.zip", "data-raw")
 
 
 
@@ -132,9 +130,8 @@ muni <- c(3106200, 3136702, 3160702) %>%
     \(x) geobr::read_municipality(code_muni = x) %>% 
       st_transform(crs = 4326)
   )
-  
 
-db_locais <- db_locais %>% 
+db_locais_2 <- db_locais %>% 
   mutate(name_muni = stringr::str_to_title(NM_MUNICIPIO)) %>% 
   st_as_sf(crs = 4326, coords = c("long", "lat"))
 
@@ -143,7 +140,10 @@ muni %>%
     \(x)
     ggplot() +
       geom_sf(data = x, fill = NA) +
-      geom_sf(data = db_locais %>% filter(name_muni %in% x$name_muni &
-                                            NM_LOCAL_VOTACAO != "E.E. PADRE ANTÔNIO VIEIRA"), stroke = 0) +
+      geom_sf(data = db_locais_2 %>% filter(name_muni %in% x$name_muni), #&
+                                            # NM_LOCAL_VOTACAO != "E.E. PADRE ANTÔNIO VIEIRA"), 
+              stroke = 0) +
       theme_void()
   )
+
+remove(db_locais_2)

@@ -1,11 +1,31 @@
-.Rproj.user
+# History files
 .Rhistory
-.RData
-.Ruserdata
 .Rapp.history
+
+# Session Data files
+.RData
+.RDataTmp
+
+# User-specific files
+.Ruserdata
+
+# RStudio files
+.Rproj.user/
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
 
 # macos things
 .DS_Store
 */.DS_Store
 
+# folders
 data-raw/*
