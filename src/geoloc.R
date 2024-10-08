@@ -50,7 +50,7 @@ db_tse <- db_tse %>%
 ## aqui, criamos uma lista de endereços independentemente do ano. 
 db_locais <- db_tse %>% 
   bind_rows() %>% 
-  distinct(NM_LOCAL_VOTACAO, DS_ENDERECO, NR_CEP, NM_MUNICIPIO) %>% 
+  distinct(NM_LOCAL_VOTACAO, NR_LOCAL_VOTACAO, DS_ENDERECO, NR_CEP, NM_MUNICIPIO) %>% 
   mutate(addr = paste0(DS_ENDERECO, " - ", NM_MUNICIPIO, ", ", NR_CEP))
 
 
@@ -112,7 +112,7 @@ db_tse <- db_tse %>%
   map(
     \(x) x %>% 
       select(AA_ELEICAO, DT_ELEICAO, DS_ELEICAO, NR_TURNO, NM_MUNICIPIO, NR_ZONA, NR_SECAO,
-             NM_LOCAL_VOTACAO, DS_ENDERECO, NR_CEP) %>% 
+             NM_LOCAL_VOTACAO, NR_LOCAL_VOTACAO, DS_ENDERECO, NR_CEP) %>% 
       left_join(db_locais) %>% 
       select(-addr)
   )
